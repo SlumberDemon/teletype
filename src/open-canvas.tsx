@@ -1,5 +1,6 @@
 import { ActionPanel, Action, Grid, Color, environment, Icon } from "@raycast/api";
 import SearchDiscovery from "./open-discovery";
+import SearchBuilder from "./open-builder";
 import { useSpace } from "./hooks";
 
 type Instance = {
@@ -31,6 +32,7 @@ export default function Command() {
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
+          <Builder />
           <Discovery />
           {data?.instances.map((instance) => (
             <Grid.Item
@@ -65,16 +67,6 @@ function StaticCanvasItems() {
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/legacy" />
             <Action.CopyToClipboard content="https://deta.space/legacy" />
-          </ActionPanel>
-        }
-      />
-      <Grid.Item
-        content="https://deta.space/assets/builder.9b3437f3.webp"
-        title="Builder"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/builder" />
-            <Action.CopyToClipboard content="https://deta.space/builder" />
           </ActionPanel>
         }
       />
@@ -122,6 +114,21 @@ function Discovery() {
         <ActionPanel>
           <Action.Push icon={Icon.AppWindowList} title="Search Discovery" target={<SearchDiscovery />} />
           <Action.OpenInBrowser url="https://deta.space/discovery" />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+function Builder() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/builder.9b3437f3.webp"
+      title="Builder"
+      actions={
+        <ActionPanel>
+          <Action.Push icon={Icon.AppWindowList} title="Search Builder" target={<SearchBuilder />} />
+          <Action.OpenInBrowser url="https://deta.space/builder" />
         </ActionPanel>
       }
     />
