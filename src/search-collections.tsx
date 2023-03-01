@@ -25,7 +25,7 @@ export default function SearchCollections() {
         <List.Item
           key={item}
           title={item}
-          subtitle="c4dc3643-1980-4e9d-9fcc-1074a86b2139"
+          subtitle="a0hfs1hr" // id
           accessories={[
             { tag: { value: "migrated", color: Color.Magenta } }, // if migrated: True, show this, else don't show // also maybe use #0885C2 for colour because that what deta builder uses
             { tag: new Date("2021-09-30T11:15:54Z") } // created_at // maybe change date format, it currently only shows the year
