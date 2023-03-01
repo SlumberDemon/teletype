@@ -6,22 +6,25 @@
   "icon": "deta.png",
   "author": "SlumberDemon",
   "license": "MIT",
+  "preferences": [
+    {
+      "name": "spaceToken",
+      "type": "password",
+      "title": "Space Token",
+      "description": "Your deta space token",
+      "required": true
+    }
+  ],
   "commands": [
     {
-      "name": "open-canvas",
-      "title": "Open Canvas",
-      "description": "Open your space canvas",
-      "mode": "no-view"
-    },
-    {
       "name": "search-discovery",
-      "title": "Discovery",
+      "title": "Search Discovery",
       "description": "Search and install apps from the deta space discovery",
       "mode": "view"
     },
     {
-      "name": "navigate",
-      "title": "Navigate",
+      "name": "open-canvas",
+      "title": "Open Canvas",
       "description": "Navigate your canvas",
       "mode": "view"
     },
@@ -34,7 +37,8 @@
   ],
   "dependencies": {
     "@raycast/api": "^1.48.4",
-    "@raycast/utils": "^1.4.18"
+    "@raycast/utils": "^1.4.18",
+    "deta-space-client": "^1.0.3"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
