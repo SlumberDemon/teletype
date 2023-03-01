@@ -75,6 +75,11 @@ type SearchHit = {
   hierarchy_lvl0: string;
   hierarchy_lvl1: string;
   hierarchy_lvl2: string;
+  hierarchy_lvl3: string;
+  hierarchy_lvl4: string;
+  hierarchy_lvl5: string;
+  hierarchy_lvl6: string;
+
   anchor: string;
   url: string;
 }
@@ -110,12 +115,17 @@ async function parseFetchResponse(response: Response) {
       };
     }
 
+    const url = new URL(hit.url)
+    url.protocol = "https:"
+    url.host = "deta.space"
+    url.port = ""
+
     sections[sectionTitle].results.push({
       id: hit.objectID,
       section: sectionTitle,
       title: parts[parts.length - 1],
       parts: parts,
-      url: hit.url,
+      url: url.toString(),
     });
   }
 
