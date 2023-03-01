@@ -1,5 +1,5 @@
 import { ActionPanel, Action, Grid, environment, Icon } from "@raycast/api";
-import SearchDiscovery from "./open-discovery";
+import SearchDiscovery from "./search-discovery";
 import SearchDocs from "./search-docs";
 import SearchProjects from "./search-projects";
 import { useSpace } from "./hooks";

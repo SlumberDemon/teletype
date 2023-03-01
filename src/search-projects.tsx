@@ -17,6 +17,7 @@ export default function SearchProjects() {
   return (
     <List
       isLoading={isLoading}
+      navigationTitle="Builder"
     >
       {data?.apps.map((project) => (
         <Project key={project.id} project={project} />
@@ -31,6 +32,8 @@ function Project(props: { project: Project }) {
     key={props.project.id}
     icon={Icon.Hammer}
     title={props.project.name}
+    subtitle={props.project.id}
+    accessoryTitle={props.project.status}
     actions={
       <ActionPanel>
         <ActionPanel.Section>

@@ -17,7 +17,7 @@
   ],
   "commands": [
     {
-      "name": "open-discovery",
+      "name": "search-discovery",
       "description": "Open the deta space discovery page",
       "title": "Search Discovery",
       "mode": "view"
