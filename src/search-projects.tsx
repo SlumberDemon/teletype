@@ -1,5 +1,3 @@
-// Temp layout, not finished
-
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { useSpace } from "./hooks";
 
