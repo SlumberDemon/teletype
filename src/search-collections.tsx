@@ -1,4 +1,5 @@
 // Temp layout idea/guide
+// Collections endpoint: https://deta.space/api/v0/collections // needs auth
 
 import { useEffect, useState } from "react";
 import { Action, ActionPanel, List, Color } from "@raycast/api";
@@ -38,7 +39,7 @@ export default function Command() {
               <Action.CopyToClipboard
                 title="Copy Link"
                 content={`https://deta.space/collections/{idhere}`}
-                shortcut={{ modifiers: ["cmd"], key: "c" }}
+                shortcut={{ modifiers: ["cmd"], key: "." }}
               />
             </ActionPanel.Section>
           </ActionPanel>
