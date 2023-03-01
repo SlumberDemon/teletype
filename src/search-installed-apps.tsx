@@ -10,9 +10,11 @@ type Instance = {
     app_name: string;
     icon_url?: string;
     short_description?: string;
+    id: string;
   };
   url: string;
 };
+
 
 type InstancesResponse = {
   instances: Instance[];
@@ -39,8 +41,14 @@ export default function Command() {
               }}
               actions={
                 <ActionPanel>
-                  <Action.OpenInBrowser url={instance.url} />
-                  {environment.isDevelopment ? <Action.CopyToClipboard content={JSON.stringify(instance)} /> : null}
+                  <ActionPanel.Section>
+                    <Action.OpenInBrowser url={instance.url} />
+                    <Action.OpenInBrowser url={`https://deta.space/discovery/r/${instance.release.id}`} title="Open in Discovery" />
+                  </ActionPanel.Section>
+                  <ActionPanel.Section>
+                    {environment.isDevelopment ? <Action.CopyToClipboard content={JSON.stringify(instance)} /> : null}
+                    <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} />
+                  </ActionPanel.Section>
                 </ActionPanel>
               }
             />
@@ -54,6 +62,16 @@ export default function Command() {
 function StaticCanvasItems() {
   return (
     <>
+      <Grid.Item
+        content="https://deta.space/assets/deta.7c76948e.svg"
+        title="Open Canvas"
+        actions={
+          <ActionPanel>
+            <Action.OpenInBrowser url="https://deta.space/" />
+            <Action.CopyToClipboard content="https://deta.space/l" />
+          </ActionPanel>
+        }
+      />
       <Grid.Item
         content="https://deta.space/assets/legacy_cloud.43f2c117.webp"
         title="Legacy Cloud"
