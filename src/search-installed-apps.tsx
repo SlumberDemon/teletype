@@ -1,7 +1,8 @@
 import { ActionPanel, Action, Grid, environment, Icon } from "@raycast/api";
+import SearchCollections from "./search-collections";
 import SearchDiscovery from "./search-discovery";
-import SearchDocs from "./search-docs";
 import SearchProjects from "./search-projects";
+import SearchDocs from "./search-docs";
 import { useSpace } from "./hooks";
 
 type Instance = {
@@ -27,6 +28,7 @@ export default function Command() {
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
+          <Collections />
           <Docs />
           <Builder />
           <Discovery />
@@ -83,16 +85,6 @@ function StaticCanvasItems() {
         }
       />
       <Grid.Item
-        content="https://deta.space/assets/collections.9c538cc2.png"
-        title="Collections"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/collections" />
-            <Action.CopyToClipboard content="https://deta.space/collections" />
-          </ActionPanel>
-        }
-      />
-      <Grid.Item
         content="https://deta.space/assets/manual.a2e80d80.webp"
         title="Manual"
         actions={
@@ -145,6 +137,21 @@ function Docs() {
         <ActionPanel>
           <Action.Push icon={Icon.AppWindowList} title="Search Docs" target={<SearchDocs />} />
           <Action.OpenInBrowser url="https://deta.space/docs" />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+function Collections() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/collections.9c538cc2.png"
+      title="Collections"
+      actions={
+        <ActionPanel>
+          <Action.Push icon={Icon.AppWindowList} title="Search Collections" target={<SearchCollections />} />
+          <Action.OpenInBrowser url="https://deta.space/collections" />
         </ActionPanel>
       }
     />

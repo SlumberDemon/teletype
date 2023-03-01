@@ -6,7 +6,7 @@ import { Action, ActionPanel, List, Color } from "@raycast/api";
 
 const items = ["Test-"];
 
-export default function Command() {
+export default function SearchCollections() {
   const [searchText, setSearchText] = useState("");
   const [filteredList, filterList] = useState(items);
 
