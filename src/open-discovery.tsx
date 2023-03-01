@@ -23,7 +23,7 @@ export default function SearchDiscovery() {
     >
       <List.Section title="Results" subtitle={data?.length + ""}>
         {data?.map((searchResult) => (
-          <SearchListItem key={searchResult.name} searchResult={searchResult} />
+          <SearchListItem key={searchResult.id} searchResult={searchResult} />
         ))}
       </List.Section>
     </List>
@@ -85,6 +85,7 @@ async function parseFetchResponse(response: Response) {
 }
 
 interface SearchResult {
+  id: string;
   name: string;
   description: string;
   username: string;
