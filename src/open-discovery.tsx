@@ -36,7 +36,7 @@ function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
       title={searchResult.name}
       subtitle={searchResult.description}
       accessoryTitle={searchResult.username}
-      icon={{ source: `${searchResult.icon}}`, mask: Image.Mask.RoundedRectangle }}
+      icon={{ source: `${searchResult.icon}`, mask: Image.Mask.RoundedRectangle }}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
