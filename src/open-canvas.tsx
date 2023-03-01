@@ -1,5 +1,6 @@
-import { ActionPanel, Action, Grid, Color, environment } from "@raycast/api";
+import { ActionPanel, Action, Grid, Color, environment, Icon } from "@raycast/api";
 import { useSpace } from "./hooks";
+import SearchDiscovery from "./search-discovery";
 
 type Instance = {
   id: string;
@@ -22,6 +23,7 @@ export default function Command() {
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
+          <Discovery />
           {data?.instances.map((instance) => (
             <Grid.Item
               key={instance.id}
@@ -93,15 +95,21 @@ function StaticCanvasItems() {
           </ActionPanel>
         }
       />
-      <Grid.Item
-        content="https://deta.space/assets/discovery.b6035544.webp"
-        title="Discovery"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/discovery" />
-          </ActionPanel>
-        }
-      />
     </>
+  );
+}
+
+function Discovery() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/discovery.b6035544.webp"
+      title="Discovery"
+      actions={
+        <ActionPanel>
+          <Action.Push icon={Icon.AppWindowList} title="Search Discovery" target={<SearchDiscovery />} />
+          <Action.OpenInBrowser url="https://deta.space/discovery" />
+        </ActionPanel>
+      }
+    />
   );
 }
