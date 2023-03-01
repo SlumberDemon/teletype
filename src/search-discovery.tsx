@@ -1,13 +1,9 @@
-import { ActionPanel, Action, List, Image } from "@raycast/api";
+import { ActionPanel, Action, List, Icon, Image } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
-import { useState } from "react";
-import { URLSearchParams } from "node:url";
 
 export default function SearchDiscovery() {
-  const [searchText, setSearchText] = useState("");
   const { data, isLoading } = useFetch(
-    "https://teletype.deta.dev/discovery?" +
-      new URLSearchParams({ q: searchText.length === 0 ? "~" : searchText }),
+    "https://deta.space/api/v0/discovery/apps",
     {
       parseResponse: parseFetchResponse,
     }
@@ -16,36 +12,33 @@ export default function SearchDiscovery() {
   return (
     <List
       isLoading={isLoading}
-      onSearchTextChange={setSearchText}
       navigationTitle="Discovery"
       searchBarPlaceholder="Search..."
-      throttle
     >
       <List.Section title="Results" subtitle={data?.length + ""}>
-        {data?.map((searchResult) => (
-          <SearchListItem key={searchResult.id} searchResult={searchResult} />
+        {data?.map((release) => (
+          <Release key={release.app_id} release={release} />
         ))}
       </List.Section>
     </List>
   );
 }
 
-function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
+function Release({ release }: { release: Release }) {
   return (
     <List.Item
-      title={searchResult.name}
-      subtitle={searchResult.description}
-      accessoryTitle={searchResult.username}
-      icon={{ source: `${searchResult.icon}`, mask: Image.Mask.RoundedRectangle }}
+      title={release.discovery.title}
+      subtitle={release.discovery.tagline}
+      icon={release.icon_url ? { source: release.icon_url, mask: Image.Mask.RoundedRectangle } : Icon.Dot}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action.OpenInBrowser title="Open in Browser" url={searchResult.url} />
+            <Action.OpenInBrowser title="Open in Browser" url={release.discovery.listed_url} />
           </ActionPanel.Section>
           <ActionPanel.Section>
             <Action.CopyToClipboard
               title="Copy Url"
-              content={`${searchResult.url}`}
+              content={`${release.discovery.listed_url}`}
               shortcut={{ modifiers: ["cmd"], key: "." }}
             />
           </ActionPanel.Section>
@@ -55,40 +48,33 @@ function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
   );
 }
 
-async function parseFetchResponse(response: Response) {
-  const json = (await response.json()) as
-    | {
-        results: {
-            name: string;
-            description: string;
-            username: string;
-            link: string;
-            icon: string;
-        }[];
-      }
-    | { code: string; message: string };
-
-  if (!response.ok || "message" in json) {
-    throw new Error("message" in json ? json.message : response.statusText)
-
+type Release = {
+  app_id: string;
+  version: string;
+  icon_url?: string;
+  discovery: {
+    title: string;
+    tagline: string;
+    theme_color: string;
+    git?: string;
+    homepage?: string;
+    listed_url: string;
+    stats: {
+      total_installs: number;
+    }
   }
-
-  return json.results.map((result) => {
-    return {
-      name: result.name,
-      description: result.description,
-      username: result.username,
-      url: result.link,
-      icon: result.icon,
-    } as SearchResult;
-  });
 }
 
-interface SearchResult {
-  id: string;
-  name: string;
-  description: string;
-  username: string;
-  url: string;
-  icon: string;
+type DiscoveryResponse = {
+  releases: Release[]
+}
+
+async function parseFetchResponse(response: Response): Promise<Release[]> {
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const payload = await response.json() as DiscoveryResponse;
+
+  return payload.releases.filter((release) => release.discovery.title != "").sort((a, b) => b.discovery.stats.total_installs - a.discovery.stats.total_installs);
 }
