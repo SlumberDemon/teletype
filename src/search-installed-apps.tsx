@@ -1,7 +1,7 @@
 import { ActionPanel, Action, Grid, environment, Icon } from "@raycast/api";
 import SearchDiscovery from "./open-discovery";
-import SearchBuilder from "./open-builder";
-import SearchDocs from "./search-documentation";
+import SearchDocs from "./search-docs";
+import SearchProjects from "./search-projects";
 import { useSpace } from "./hooks";
 
 type Instance = {
@@ -88,7 +88,6 @@ function StaticCanvasItems() {
   );
 }
 
-
 function Discovery() {
   return (
     <Grid.Item
@@ -111,7 +110,7 @@ function Builder() {
       title="Builder"
       actions={
         <ActionPanel>
-          <Action.Push icon={Icon.AppWindowList} title="Search Builder" target={<SearchBuilder />} />
+          <Action.Push icon={Icon.AppWindowList} title="Search Builder" target={<SearchProjects />} />
           <Action.OpenInBrowser url="https://deta.space/builder" />
         </ActionPanel>
       }

@@ -5,7 +5,7 @@ import { Action, ActionPanel, List } from "@raycast/api";
 
 const items = ["Palettes"];
 
-export default function SearchBuilder() {
+export default function SearchProjects() {
   const [searchText, setSearchText] = useState("");
   const [filteredList, filterList] = useState(items);
 
@@ -28,24 +28,24 @@ export default function SearchBuilder() {
           accessoryTitle="active" // status
           actions={
             <ActionPanel>
-            <ActionPanel.Section>
-              <Action.OpenInBrowser title="Open in Browser" url="https://deta.space" />
-            </ActionPanel.Section>
-            <ActionPanel.Section>
-              <Action.CopyToClipboard
-                title="Copy Url"
-                content={`https://deta.space`}
-                shortcut={{ modifiers: ["cmd"], key: "c" }}
-              />
-            </ActionPanel.Section>
-            <ActionPanel.Section>
-              <Action.CopyToClipboard
-                title="Copy project id"
-                content={`c4dc3643-1980-4e9d-9fcc-1074a86b2139`}
-                shortcut={{ modifiers: ["cmd"], key: "i" }}
-              />
-            </ActionPanel.Section>
-          </ActionPanel>
+              <ActionPanel.Section>
+                <Action.OpenInBrowser title="Open in Browser" url="https://deta.space" />
+              </ActionPanel.Section>
+              <ActionPanel.Section>
+                <Action.CopyToClipboard
+                  title="Copy Url"
+                  content={`https://deta.space`}
+                  shortcut={{ modifiers: ["cmd"], key: "c" }}
+                />
+              </ActionPanel.Section>
+              <ActionPanel.Section>
+                <Action.CopyToClipboard
+                  title="Copy project id"
+                  content={`c4dc3643-1980-4e9d-9fcc-1074a86b2139`}
+                  shortcut={{ modifiers: ["cmd"], key: "i" }}
+                />
+              </ActionPanel.Section>
+            </ActionPanel>
           }
         />
       ))}

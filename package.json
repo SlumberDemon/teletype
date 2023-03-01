@@ -18,26 +18,26 @@
   "commands": [
     {
       "name": "open-discovery",
-      "title": "Open Discovery",
-      "description": "Search and install apps from the deta space discovery",
+      "description": "Open the deta space discovery page",
+      "title": "Search Discovery",
       "mode": "view"
     },
     {
-      "name": "open-canvas",
-      "title": "Open Canvas",
-      "description": "Navigate your canvas",
+      "name": "search-installed-apps",
+      "title": "Search Installed Apps",
+      "description": "Search for installed apps",
       "mode": "view"
     },
     {
-      "name": "open-builder",
-      "title": "Open Builder",
-      "description": "Navigate your builder projects",
+      "name": "search-projects",
+      "title": "Search your Projects",
+      "description": "Search your deta space projects",
       "mode": "view"
     },
     {
-      "name": "search-documentation",
-      "title": "Search docs",
-      "description": "Search for pages in the documentation",
+      "name": "search-docs",
+      "title": "Search Docs",
+      "description": "Search the deta docs",
       "mode": "view"
     }
   ],
