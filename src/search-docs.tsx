@@ -1,14 +1,13 @@
-import { ActionPanel, Action, List } from "@raycast/api";
+import { ActionPanel, Action, List, Icon } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
 import { useState } from "react";
 
 type SearchResult = {
   id: string;
-  name: string;
-  path: string;
+  title: string;
+  parts: string[];
+  section: string;
   url: string;
-  anchor: string;
-  fragments: string;
 };
 
 type SearchSection = {
@@ -16,7 +15,7 @@ type SearchSection = {
   results: SearchResult[];
 };
 
-const searchEndpoint = "https://teletype.deta.dev/search";
+const searchEndpoint = "https://deta.space/api/v0/indexes/docs/search";
 
 export default function SearchDocs() {
   const [searchText, setSearchText] = useState("");
@@ -29,9 +28,7 @@ export default function SearchDocs() {
     <List
       isLoading={isLoading}
       onSearchTextChange={setSearchText}
-      searchText={searchText}
-      navigationTitle="Docs"
-      searchBarPlaceholder="Search Docs..."
+      filtering={false}
       throttle
     >
       {data?.map((section) => (
@@ -46,10 +43,14 @@ export default function SearchDocs() {
 }
 
 function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
+  if (!searchResult.title) {
+    console.log(searchResult);
+  }
   return (
     <List.Item
       id={searchResult.id}
-      title={searchResult.name}
+      title={searchResult.title}
+      icon={Icon.BlankDocument}
       actions={
         <ActionPanel>
           <ActionPanel.Section>
@@ -68,35 +69,54 @@ function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
   );
 }
 
-async function parseFetchResponse(response: Response) {
-  const json = (await response.json()) as
-    | {
-        results: {
-          name: string;
-          path: string;
-          url: string;
-          anchor: string;
-          id: string;
-          fragments: string;
-        }[];
-      }
-    | { code: string; message: string };
+type SearchHit = {
+  objectID: string;
 
-  if (!response.ok || "message" in json) {
-    throw new Error("message" in json ? json.message : response.statusText);
+  hierarchy_lvl0: string;
+  hierarchy_lvl1: string;
+  hierarchy_lvl2: string;
+  anchor: string;
+  url: string;
+}
+
+type SearchResponse = {
+  hits: SearchHit[]
+  query: string;
+}
+
+async function parseFetchResponse(response: Response) {
+  if (!response.ok) {
+    throw new Error(`Failed to fetch search results: ${response.statusText}`);
   }
+  const payload = await response.json() as SearchResponse;
 
   const sections: Record<string, SearchSection> = {};
-  for (const result of json.results) {
-    const sectionTitle = result.fragments.split(" > ").slice(0, -1).join(" > ");
+
+  for (const hit of payload.hits) {
+    const parts = []
+    for (let i = 0; i < 7; i++) {
+      if (!hit[`hierarchy_lvl${i}` as keyof SearchHit]) {
+        break;
+      }
+
+      parts.push(hit[`hierarchy_lvl${i}` as keyof SearchHit]);
+    }
+
+    const sectionTitle = parts.slice(0, -1).join(" > ");
     if (!sections[sectionTitle]) {
       sections[sectionTitle] = {
         title: sectionTitle,
-        results: [result],
+        results: [],
       };
-    } else {
-      sections[sectionTitle].results.push(result);
     }
+
+    sections[sectionTitle].results.push({
+      id: hit.objectID,
+      section: sectionTitle,
+      title: parts[parts.length - 1],
+      parts: parts,
+      url: hit.url,
+    });
   }
 
   return Object.values(sections);
