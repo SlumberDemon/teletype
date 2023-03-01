@@ -1,6 +1,7 @@
-import { ActionPanel, Action, Grid, Color, environment, Icon } from "@raycast/api";
+import { ActionPanel, Action, Grid, environment, Icon } from "@raycast/api";
 import SearchDiscovery from "./open-discovery";
 import SearchBuilder from "./open-builder";
+import SearchDocs from "./search-documentation";
 import { useSpace } from "./hooks";
 
 type Instance = {
@@ -17,14 +18,6 @@ type InstancesResponse = {
   instances: Instance[];
 };
 
-function randomColor() {
-  const colors = ["Yellow", "Red", "Purple", "Orange", "Magenta", "Green", "Blue"] as Array<keyof typeof Color>;
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  const randomKey = colors[randomIndex];
-
-  return Color[randomKey];
-}
-
 export default function Command() {
   const { data, isLoading } = useSpace<InstancesResponse>("/instances");
   return (
@@ -32,6 +25,7 @@ export default function Command() {
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
+          <Docs />
           <Builder />
           <Discovery />
           {data?.instances.map((instance) => (
@@ -39,7 +33,7 @@ export default function Command() {
               key={instance.id}
               title={instance.release.app_name}
               content={{
-                value: instance.release.icon_url ? instance.release.icon_url : { color: randomColor() },
+                value: instance.release.icon_url ? instance.release.icon_url : { color: "#ED3FA2" },
 
                 tooltip: instance.release.short_description || "No description",
               }}
@@ -77,16 +71,6 @@ function StaticCanvasItems() {
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/collections" />
             <Action.CopyToClipboard content="https://deta.space/collections" />
-          </ActionPanel>
-        }
-      />
-      <Grid.Item
-        content="https://deta.space/assets/docs.36387e5a.webp"
-        title="Docs"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/docs" />
-            <Action.CopyToClipboard content="https://deta.space/docs" />
           </ActionPanel>
         }
       />
@@ -129,6 +113,21 @@ function Builder() {
         <ActionPanel>
           <Action.Push icon={Icon.AppWindowList} title="Search Builder" target={<SearchBuilder />} />
           <Action.OpenInBrowser url="https://deta.space/builder" />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+function Docs() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/docs.36387e5a.webp"
+      title="Docs"
+      actions={
+        <ActionPanel>
+          <Action.Push icon={Icon.AppWindowList} title="Search Docs" target={<SearchDocs />} />
+          <Action.OpenInBrowser url="https://deta.space/docs" />
         </ActionPanel>
       }
     />
