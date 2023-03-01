@@ -3,7 +3,7 @@ import { useFetch } from "@raycast/utils";
 import { useState } from "react";
 import { URLSearchParams } from "node:url";
 
-export default function Command() {
+export default function SearchDiscovery() {
   const [searchText, setSearchText] = useState("");
   const { data, isLoading } = useFetch(
     "https://teletype.deta.dev/discovery?" +
