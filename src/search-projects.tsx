@@ -33,7 +33,9 @@ function Project(props: { project: Project }) {
     icon={Icon.Hammer}
     title={props.project.name}
     subtitle={props.project.id}
-    accessoryTitle={props.project.status}
+    accessories={[
+      { text: props.project.status }
+    ]}
     actions={
       <ActionPanel>
         <ActionPanel.Section>

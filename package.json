@@ -31,13 +31,19 @@
     {
       "name": "search-projects",
       "title": "Search your Projects",
-      "description": "Search your builder projects",
+      "description": "Search for builder projects",
+      "mode": "view"
+    },
+    {
+      "name": "search-collections",
+      "title": "Search Collections",
+      "description": "Search for collections",
       "mode": "view"
     },
     {
       "name": "search-docs",
       "title": "Search Docs",
-      "description": "Search the documentation",
+      "description": "Search for documentation",
       "mode": "view"
     }
   ],

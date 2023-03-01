@@ -43,10 +43,10 @@ export default function Command() {
                 <ActionPanel>
                   <ActionPanel.Section>
                     <Action.OpenInBrowser url={instance.url} />
-                    <Action.OpenInBrowser url={`https://deta.space/discovery/r/${instance.release.id}`} title="Open in Discovery" />
+                    <Action.OpenInBrowser title="Open in Discovery" url={`https://deta.space/discovery/r/${instance.release.id}`} />
                   </ActionPanel.Section>
                   <ActionPanel.Section>
-                    {environment.isDevelopment ? <Action.CopyToClipboard content={JSON.stringify(instance)} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
+                    {environment.isDevelopment ? <Action.CopyToClipboard title="Copy Link" content={JSON.stringify(instance)} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
                     <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} shortcut={{ modifiers: ["cmd", "shift"], key: "." }}/>
                   </ActionPanel.Section>
                 </ActionPanel>
