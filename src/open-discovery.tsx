@@ -17,7 +17,8 @@ export default function Command() {
     <List
       isLoading={isLoading}
       onSearchTextChange={setSearchText}
-      searchBarPlaceholder="Search space apps..."
+      navigationTitle="Discovery"
+      searchBarPlaceholder="Search..."
       throttle
     >
       <List.Section title="Results" subtitle={data?.length + ""}>
@@ -35,7 +36,7 @@ function SearchListItem({ searchResult }: { searchResult: SearchResult }) {
       title={searchResult.name}
       subtitle={searchResult.description}
       accessoryTitle={searchResult.username}
-      icon={{ source: `${searchResult.icon}`, mask: Image.Mask.RoundedRectangle }}
+      icon={{ source: `${searchResult.icon}}`, mask: Image.Mask.RoundedRectangle }}
       actions={
         <ActionPanel>
           <ActionPanel.Section>

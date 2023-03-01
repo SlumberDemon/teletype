@@ -18,7 +18,7 @@ type InstancesResponse = {
 export default function Command() {
   const { data, isLoading } = useSpace<InstancesResponse>("/instances");
   return (
-    <Grid isLoading={isLoading}>
+    <Grid isLoading={isLoading} itemSize={Grid.ItemSize.Small} navigationTitle="Canvas">
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
@@ -54,6 +54,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/legacy" />
+            <Action.CopyToClipboard content="https://deta.space/legacy" />
           </ActionPanel>
         }
       />
@@ -63,6 +64,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/builder" />
+            <Action.CopyToClipboard content="https://deta.space/builder" />
           </ActionPanel>
         }
       />
@@ -72,6 +74,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/collections" />
+            <Action.CopyToClipboard content="https://deta.space/collections" />
           </ActionPanel>
         }
       />
@@ -81,6 +84,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/docs" />
+            <Action.CopyToClipboard content="https://deta.space/docs" />
           </ActionPanel>
         }
       />
@@ -90,6 +94,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/manual" />
+            <Action.CopyToClipboard content="https://deta.space/manual" />
           </ActionPanel>
         }
       />
@@ -99,6 +104,7 @@ function StaticCanvasItems() {
         actions={
           <ActionPanel>
             <Action.OpenInBrowser url="https://deta.space/discovery" />
+            <Action.CopyToClipboard content="https://deta.space/discovery" />
           </ActionPanel>
         }
       />

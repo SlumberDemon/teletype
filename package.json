@@ -17,8 +17,8 @@
   ],
   "commands": [
     {
-      "name": "search-discovery",
-      "title": "Search Discovery",
+      "name": "open-discovery",
+      "title": "Open Discovery",
       "description": "Search and install apps from the deta space discovery",
       "mode": "view"
     },
@@ -26,6 +26,12 @@
       "name": "open-canvas",
       "title": "Open Canvas",
       "description": "Navigate your canvas",
+      "mode": "view"
+    },
+    {
+      "name": "open-builder",
+      "title": "Open Builder",
+      "description": "Navigate your builder projects",
       "mode": "view"
     },
     {

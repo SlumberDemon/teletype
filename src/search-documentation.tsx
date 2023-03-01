@@ -3,7 +3,7 @@ import Doc from "./documentation/doc";
 
 export default function Command() {
   return (
-    <List>
+    <List navigationTitle="Docs">
       {Object.entries(Doc).map(([section, items]) => (
         <List.Section title={section} key={section}>
           {items.map((item) => {
