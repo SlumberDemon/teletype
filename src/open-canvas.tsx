@@ -15,6 +15,14 @@ type InstancesResponse = {
   instances: Instance[];
 };
 
+function randomColor() {
+  const colors = ["Yellow", "Red", "Purple", "Orange", "Magenta", "Green", "Blue"] as Array<keyof typeof Color>;
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  const randomKey = colors[randomIndex];
+
+  return Color[randomKey];
+}
+
 export default function Command() {
   const { data, isLoading } = useSpace<InstancesResponse>("/instances");
   return (
@@ -27,7 +35,7 @@ export default function Command() {
               key={instance.id}
               title={instance.release.app_name}
               content={{
-                value: instance.release.icon_url ? instance.release.icon_url : { color: Color.Purple },
+                value: instance.release.icon_url ? instance.release.icon_url : { color: randomColor() },
 
                 tooltip: instance.release.short_description || "No description",
               }}
