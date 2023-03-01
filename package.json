@@ -18,8 +18,8 @@
   "commands": [
     {
       "name": "search-discovery",
-      "description": "Open the deta space discovery page",
       "title": "Search Discovery",
+      "description": "Search for apps in discovery",
       "mode": "view"
     },
     {
@@ -31,13 +31,13 @@
     {
       "name": "search-projects",
       "title": "Search your Projects",
-      "description": "Search your deta space projects",
+      "description": "Search your builder projects",
       "mode": "view"
     },
     {
       "name": "search-docs",
       "title": "Search Docs",
-      "description": "Search the deta docs",
+      "description": "Search the documentation",
       "mode": "view"
     }
   ],
