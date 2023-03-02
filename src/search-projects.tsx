@@ -1,0 +1,58 @@
+import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { useSpace } from "./hooks";
+
+type Project = {
+  id: string;
+  name: string;
+  status: string;
+}
+
+type ProjectResponse = {
+  apps: Project[]
+}
+
+export default function SearchProjects() {
+  const { data, isLoading } = useSpace<ProjectResponse>("/apps");
+
+  return (
+    <List
+      isLoading={isLoading}
+      navigationTitle="Builder"
+    >
+      {data?.apps.map((project) => (
+        <Project key={project.id} project={project} />
+      ))}
+    </List>
+  );
+}
+
+function Project(props: { project: Project }) {
+  return <List.Item
+    key={props.project.id}
+    icon={Icon.Hammer}
+    title={props.project.name}
+    subtitle={props.project.id}
+    accessories={[
+      { text: props.project.status }
+    ]}
+    actions={
+      <ActionPanel>
+        <ActionPanel.Section>
+          <Action.OpenInBrowser title="Open in Builder" url={`https://deta.space/builder/${props.project.id}`} />
+        </ActionPanel.Section>
+        <ActionPanel.Section>
+          <Action.CopyToClipboard
+            title="Copy Project Link"
+            content={`https://deta.space/builder/${props.project.id}`}
+            shortcut={{ modifiers: ["cmd"], key: "c" }}
+          />
+          <Action.CopyToClipboard
+            title="Copy Project ID"
+            content={props.project.id}
+            shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+          />
+        </ActionPanel.Section>
+      </ActionPanel>
+    }
+  />
+}

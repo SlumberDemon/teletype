@@ -2,7 +2,7 @@
 
 A mininal version of the deta space teletype
 
-## Development instance
+### Development
 
 Clone the repo with git clone, make sure you have raycast installed!
 
