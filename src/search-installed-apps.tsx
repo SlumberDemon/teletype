@@ -24,7 +24,7 @@ type InstancesResponse = {
 export default function Command() {
   const { data, isLoading } = useSpace<InstancesResponse>("/instances");
   return (
-    <Grid isLoading={isLoading} navigationTitle="Canvas">
+    <Grid isLoading={isLoading} columns={8} navigationTitle="Canvas">
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
