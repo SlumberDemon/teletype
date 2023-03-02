@@ -1,5 +1,6 @@
-import { List } from "@raycast/api";
+import { Color, Icon, List } from "@raycast/api";
 import { useSpace } from "../hooks/use-space";
+import DriveData from "../collections/drive";
 
 type Collection = {
   id: string;
@@ -14,83 +15,76 @@ type Drive = {
   status: string;
 }
 
+type Base = {
+  name: string;
+  collection_id: string;
+  status: string;
+}
+
+type BaseResponse = {
+  bases: Base[]
+}
+
 type DriveResponse = {
   drives: Drive[]
 }
 
+function BaseList(props: { collection: Collection }) {
+  const { data } = useSpace<BaseResponse>(`/collections/${props.collection.id}/bases`)
 
-// export default function Collection() {
-//   const { data, isLoading } = useSpace<DriveResponse>("/collections/a0gqv419/drives")
+  return (
+    <List.Section title="Bases">
+      {data?.bases.map((base) => (
+        <BaseItem key={base.name} base={base} />
+      ))}
+    </List.Section>
+  );
+}
 
-//   return (
-//     <List.Section>
-//       {data?.drives.map((drive) => (
-//         <Drive key={drive.collection_id} project={drive} />
-//       ))}
-//     </List.Section>
-//   );
-// }
+
+function DriveList(props: { collection: Collection }) {
+  const { data } = useSpace<DriveResponse>(`/collections/${props.collection.id}/drives`)
+
+  return (
+    <List.Section title="Drives">
+      {data?.drives.map((drive) => (
+        <DriveItem key={drive.name} drive={drive} />
+      ))}
+    </List.Section>
+  );
+}
 
 
 export function Collection(props: { collection: Collection }) {
   return (
     <List isShowingDetail navigationTitle={props.collection.name}>
-      <List.Section title="Drives">
-        <List.Item
-          title="Drive Name"
-          detail={
-            <List.Item.Detail
-              metadata={
-                <List.Item.Detail.Metadata>
-                  <List.Item.Detail.Metadata.Label title="Types" />
-                  <List.Item.Detail.Metadata.Label title="Grass" icon="pokemon_types/grass.svg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Poison" icon="pokemon_types/poison.svg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Chracteristics" />
-                  <List.Item.Detail.Metadata.Label title="Height" text="70cm" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Weight" text="6.9 kg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Abilities" />
-                  <List.Item.Detail.Metadata.Label title="Chlorophyll" text="Main Series" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Overgrow" text="Main Series" />
-                  <List.Item.Detail.Metadata.Separator />
-                </List.Item.Detail.Metadata>
-              }
-            />
-          }
-        />
-      </List.Section>
-      <List.Section title="Bases">
-        <List.Item
-          title="Base Name"
-          detail={
-            <List.Item.Detail
-              metadata={
-                <List.Item.Detail.Metadata>
-                  <List.Item.Detail.Metadata.Label title="Types" />
-                  <List.Item.Detail.Metadata.Label title="Grass" icon="pokemon_types/grass.svg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Poison" icon="pokemon_types/poison.svg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Chracteristics" />
-                  <List.Item.Detail.Metadata.Label title="Height" text="70cm" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Weight" text="6.9 kg" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Abilities" />
-                  <List.Item.Detail.Metadata.Label title="Chlorophyll" text="Main Series" />
-                  <List.Item.Detail.Metadata.Separator />
-                  <List.Item.Detail.Metadata.Label title="Overgrow" text="Main Series" />
-                  <List.Item.Detail.Metadata.Separator />
-                </List.Item.Detail.Metadata>
-              }
-            />
-          }
-        />
-      </List.Section>
+      <BaseList collection={props.collection} />
+      <DriveList collection={props.collection} />
     </List >
   );
+}
+
+function BaseItem(props: { base: Base }) {
+  return <List.Item
+    key={props.base.name}
+    icon={Icon.List}
+    title={props.base.name}
+    accessories={[
+      { tag: { value: props.base.status, color: Color.Green } }, // change color depending on status
+    ]}
+  />
+}
+
+function DriveItem(props: { drive: Drive }) {
+  return <List.Item
+    key={props.drive.name}
+    icon={Icon.HardDrive}
+    title={props.drive.name}
+    accessories={[
+      { tag: { value: props.drive.status, color: Color.Green } }, // change color depending on status
+    ]}
+    detail={
+      <DriveData />
+    }
+  />
 }

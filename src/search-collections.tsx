@@ -31,7 +31,7 @@ export default function SearchCollections() {
 function CollectionItem(props: { collection: Collection }) {
   return <List.Item
     key={props.collection.id}
-    icon={Icon.HardDrive}
+    icon={Icon.Box}
     title={props.collection.name}
     subtitle={props.collection.id}
     accessories={[
