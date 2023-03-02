@@ -7,16 +7,6 @@ type Base = {
     status: string;
 }
 
-// type DriveInfo = {
-//    size: number;
-//    last: string;
-// };
-
-// type DriveDataResponse = {
-//    paging: DriveInfo;
-//    names: string[];
-// };
-
 export default function BaseSearch(props: { base: Base }) {
     // const { data } = useSpace<DriveDataResponse>("/drive/v1/a0gqv419/files/files?prefix=/&recursive=false&limit=22&last=")
 
