@@ -1,7 +1,7 @@
 // import { useSpace } from "../hooks/use-space";
 import { Icon, List } from "@raycast/api";
 
-type Drive = {
+type Base = {
     name: string;
     collection_id: string;
     status: string;
@@ -17,16 +17,21 @@ type Drive = {
 //    names: string[];
 // };
 
-export default function DriveSearch(props: { drive: Drive }) {
+export default function BaseSearch(props: { base: Base }) {
     // const { data } = useSpace<DriveDataResponse>("/drive/v1/a0gqv419/files/files?prefix=/&recursive=false&limit=22&last=")
 
     return (
-        <List isShowingDetail navigationTitle={props.drive.name}>
+        <List isShowingDetail navigationTitle={props.base.name}>
             <List.Item
-                title="file.ext"
+                title="Item"
                 detail={
                     <List.Item.Detail
-                        markdown="![Illustration](https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png)"
+                        markdown="
+                        {'data': [
+                            '1': 'hello',
+                            '2': 'world
+                        ]}
+                        "
                         metadata={
                             <List.Item.Detail.Metadata>
                                 <List.Item.Detail.Metadata.Label title="Data" />

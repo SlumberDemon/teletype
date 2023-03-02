@@ -1,6 +1,7 @@
-import { Color, Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
 import { useSpace } from "../hooks/use-space";
-import DriveData from "../collections/drive";
+import DriveSearch from "./drive";
+import BaseSearch from "./base";
 
 type Collection = {
   id: string;
@@ -57,7 +58,7 @@ function DriveList(props: { collection: Collection }) {
 
 export function Collection(props: { collection: Collection }) {
   return (
-    <List isShowingDetail navigationTitle={props.collection.name}>
+    <List navigationTitle={props.collection.name}>
       <BaseList collection={props.collection} />
       <DriveList collection={props.collection} />
     </List >
@@ -72,6 +73,11 @@ function BaseItem(props: { base: Base }) {
     accessories={[
       { tag: { value: props.base.status, color: Color.Green } }, // change color depending on status
     ]}
+    actions={
+      <ActionPanel>
+        <Action.Push title="Open Base" target={<BaseSearch base={props.base} />} />
+      </ActionPanel>
+    }
   />
 }
 
@@ -83,8 +89,10 @@ function DriveItem(props: { drive: Drive }) {
     accessories={[
       { tag: { value: props.drive.status, color: Color.Green } }, // change color depending on status
     ]}
-    detail={
-      <DriveData />
+    actions={
+      <ActionPanel>
+        <Action.Push title="Open Drive" target={<DriveSearch drive={props.drive} />} />
+      </ActionPanel>
     }
   />
 }
