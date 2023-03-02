@@ -3,7 +3,7 @@ import SearchCollections from "./search-collections";
 import SearchDiscovery from "./search-discovery";
 import SearchProjects from "./search-projects";
 import SearchDocs from "./search-docs";
-import { useSpace } from "./hooks";
+import { useSpace } from "./hooks/use-space";
 
 type Instance = {
   id: string;
@@ -24,7 +24,7 @@ type InstancesResponse = {
 export default function Command() {
   const { data, isLoading } = useSpace<InstancesResponse>("/instances");
   return (
-    <Grid isLoading={isLoading} itemSize={Grid.ItemSize.Small} navigationTitle="Canvas">
+    <Grid isLoading={isLoading} navigationTitle="Canvas">
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
@@ -49,7 +49,7 @@ export default function Command() {
                   </ActionPanel.Section>
                   <ActionPanel.Section>
                     {environment.isDevelopment ? <Action.CopyToClipboard title="Copy Link" content={JSON.stringify(instance)} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
-                    <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} shortcut={{ modifiers: ["cmd", "shift"], key: "." }}/>
+                    <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} shortcut={{ modifiers: ["cmd", "shift"], key: "." }} />
                   </ActionPanel.Section>
                 </ActionPanel>
               }

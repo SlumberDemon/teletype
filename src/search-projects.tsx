@@ -1,5 +1,5 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
-import { useSpace } from "./hooks";
+import { useSpace } from "./hooks/use-space";
 
 type Project = {
   id: string;
