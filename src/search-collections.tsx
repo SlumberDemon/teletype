@@ -1,4 +1,4 @@
-import { CollectionList } from "./collections/browse-collection";
+import { Collection } from "./collections/browse-collection";
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { useSpace } from "./hooks/use-space";
 
@@ -22,13 +22,13 @@ export default function SearchCollections() {
       navigationTitle="Collections"
     >
       {data?.collections.map((collection) => (
-        <CollectionList key={collection.id} collection={collection} />
+        <CollectionItem key={collection.id} collection={collection} />
       ))}
     </List>
   )
 }
 
-function CollectionList(props: { collection: Collection }) {
+function CollectionItem(props: { collection: Collection }) {
   return <List.Item
     key={props.collection.id}
     icon={Icon.HardDrive}
@@ -41,7 +41,7 @@ function CollectionList(props: { collection: Collection }) {
     actions={
       <ActionPanel>
         <ActionPanel.Section>
-          <Action.Push icon={Icon.MagnifyingGlass} title="Browse Collection" target={<CollectionList collection={props.collection} />} />
+          <Action.Push icon={Icon.MagnifyingGlass} title="Browse Collection" target={<Collection collection={props.collection} />} />
           <Action.OpenInBrowser url={`https://deta.space/collections/${props.collection.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>

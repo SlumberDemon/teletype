@@ -32,7 +32,7 @@ type DriveResponse = {
 // }
 
 
-export function CollectionList(props: { collection: Collection }) {
+export function Collection(props: { collection: Collection }) {
   return (
     <List isShowingDetail navigationTitle={props.collection.name}>
       <List.Section title="Drives">
