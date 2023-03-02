@@ -28,9 +28,9 @@ export default function Command() {
       {isLoading ? null : (
         <>
           <StaticCanvasItems />
-          <Collections />
           <Docs />
           <Builder />
+          <Collections />
           <Discovery />
           {data?.instances.map((instance) => (
             <Grid.Item

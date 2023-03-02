@@ -27,7 +27,6 @@ export default function SearchProjects() {
 }
 
 function Project(props: { project: Project }) {
-  const projectUrl = `https://deta.space/builder/${props.project.id}`
   return <List.Item
     key={props.project.id}
     icon={Icon.Hammer}
@@ -39,12 +38,12 @@ function Project(props: { project: Project }) {
     actions={
       <ActionPanel>
         <ActionPanel.Section>
-          <Action.OpenInBrowser title="Open in Builder" url={projectUrl} />
+          <Action.OpenInBrowser title="Open in Builder" url={`https://deta.space/builder/${props.project.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>
           <Action.CopyToClipboard
             title="Copy Project Link"
-            content={projectUrl}
+            content={`https://deta.space/builder/${props.project.id}`}
             shortcut={{ modifiers: ["cmd"], key: "c" }}
           />
           <Action.CopyToClipboard
