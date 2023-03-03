@@ -1,10 +1,13 @@
-import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import { Action, ActionPanel, Icon, List, Color } from "@raycast/api";
 import { useSpace } from "./hooks/use-space";
+import OpenProject from "./builder/project";
 
 type Project = {
   id: string;
   name: string;
   status: string;
+  created_at: string;
+  updated_at: string;
 }
 
 type ProjectResponse = {
@@ -33,11 +36,13 @@ function Project(props: { project: Project }) {
     title={props.project.name}
     subtitle={props.project.id}
     accessories={[
-      { text: props.project.status }
+      { tag: { value: props.project.status, color: Color.Green } }
+      // { tag: new Date(props.project.created_at) }
     ]}
     actions={
       <ActionPanel>
         <ActionPanel.Section>
+          <Action.Push icon={Icon.AppWindowList} title="Open Project" target={<OpenProject project={props.project} />} />
           <Action.OpenInBrowser title="Open in Builder" url={`https://deta.space/builder/${props.project.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>
