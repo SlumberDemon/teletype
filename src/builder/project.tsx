@@ -22,7 +22,6 @@ type BuildsResponse = {
 
 export default function OpenProject(props: { project: Project, }) {
     // const { data, isLoading } = useSpace
-    // const { buildData } = useSpace<BuildsResponse>(`/builds?app_id=${props.project.id}`)
 
     return (
         <List isShowingDetail navigationTitle={props.project.name}>
@@ -47,6 +46,7 @@ export default function OpenProject(props: { project: Project, }) {
                         <List.Item.Detail
                             metadata={
                                 <List.Item.Detail.Metadata>
+
                                 </List.Item.Detail.Metadata>
                             }
                         />
@@ -99,16 +99,14 @@ export default function OpenProject(props: { project: Project, }) {
                     detail={
                         <List.Item.Detail
                             metadata={
-                                <List.Item.Detail.Metadata>
-
-                                </List.Item.Detail.Metadata>
+                                <Build project={props.project} />
                             }
                         />
                     }
                     actions={
                         // Browse base -> connect to file-navigation feature
                         <ActionPanel>
-                            <Action.Push icon={Icon.AppWindowList} title="Browse Drives" target={null} />
+                            <Action.Push icon={Icon.AppWindowList} title="Browse Bases" target={null} />
                         </ActionPanel>
                     }
                 />
@@ -136,6 +134,12 @@ export default function OpenProject(props: { project: Project, }) {
     );
 }
 
-function Build(props: { build: Build }) {
-    return <List.Item.Detail.Metadata.Label title={props.build.id} text={props.build.id} />
+function Build(props: { project: Project }) {
+    const { data } = useSpace<BuildsResponse>(`/builds?app_id=${props.project.id}`)
+
+    return <List.Item.Detail.Metadata>
+        {data?.builds.map((build) =>
+            <List.Item.Detail.Metadata.Label title={build.id} text={build.status} />
+        )}
+    </List.Item.Detail.Metadata>
 }
