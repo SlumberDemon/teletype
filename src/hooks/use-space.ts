@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import DetaSpaceClient from "deta-space-client";
+import { SpaceClient } from "deta-space-client";
 import { getPreferenceValues } from "@raycast/api";
 import { useCachedPromise } from "@raycast/utils";
 import type { UseCachedPromiseReturnType } from "@raycast/utils/dist/types";
@@ -11,7 +11,7 @@ export function useSpace<T, U = undefined>(
   endpoint: string,
   options?: CachedPromiseOptions<(endpoint: string) => Promise<T>, U>
 ): UseCachedPromiseReturnType<Awaited<T>, U> {
-  const client = useMemo(() => DetaSpaceClient(spaceToken), [spaceToken]);
+  const client = useMemo(() => SpaceClient(spaceToken), [spaceToken]);
 
   async function promise(endpoint: string): Promise<T> {
     const res = await client.get(endpoint);
