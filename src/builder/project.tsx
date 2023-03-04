@@ -26,7 +26,7 @@ export default function OpenProject(props: { project: Project, }) {
     return (
         <List isShowingDetail navigationTitle={props.project.name}>
             <List.Item
-                title="Main" // gets data from https://deta.space/api/v0/instances/idhere (id example: a05P5Ar14hts)
+                title="Main" // gets data from https://deta.space/api/v0/instances/smallidhere (id example: a05P5Ar14hts)
                 icon={Icon.House}
                 detail={
                     <List.Item.Detail
@@ -40,7 +40,7 @@ export default function OpenProject(props: { project: Project, }) {
             />
             <List.Section title="Development">
                 <List.Item
-                    title="Builds"
+                    title="Builds" // https://deta.space/api/v0/builds?app_id=
                     icon={Icon.Hammer}
                     detail={
                         <List.Item.Detail
@@ -53,7 +53,7 @@ export default function OpenProject(props: { project: Project, }) {
                     }
                 />
                 <List.Item
-                    title="Micros"
+                    title="Micros" // https://deta.space/api/v0/instances/smallidhere 
                     icon={Icon.ComputerChip}
                     detail={
                         <List.Item.Detail
@@ -66,7 +66,7 @@ export default function OpenProject(props: { project: Project, }) {
                     }
                 />
                 <List.Item
-                    title="Revisions"
+                    title="Revisions" // https://deta.space/api/v0/apps/appidhere/revisions
                     icon={Icon.List}
                     detail={
                         <List.Item.Detail
@@ -79,7 +79,7 @@ export default function OpenProject(props: { project: Project, }) {
                     }
                 />
                 <List.Item
-                    title="Actions"
+                    title="Actions" // https://deta.space/api/v0/instances/smallidhere/actions
                     icon={Icon.Clock}
                     detail={
                         <List.Item.Detail
