@@ -1,17 +1,17 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "teletype",
+  "name": "deta-community",
   "title": "Teletype",
-  "description": "A mininal version of the deta space teletype",
-  "icon": "deta.png",
+  "description": "Use Deta Space Teletype directly from Raycast",
+  "icon": "icon.png",
   "author": "SlumberDemon",
   "license": "MIT",
   "preferences": [
     {
       "name": "spaceToken",
       "type": "password",
-      "title": "Space Token",
-      "description": "Your deta space token",
+      "title": "Access Token",
+      "description": "Your deta space access token",
       "required": true
     }
   ],
@@ -50,7 +50,7 @@
   "dependencies": {
     "@raycast/api": "^1.48.4",
     "@raycast/utils": "^1.4.18",
-    "deta-space-client": "^1.0.3"
+    "deta-space-client": "^1.0.8"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
