@@ -48,7 +48,7 @@ export default function Command() {
                     <Action.OpenInBrowser title="Open in Discovery" url={`https://deta.space/discovery/r/${instance.release.id}`} />
                   </ActionPanel.Section>
                   <ActionPanel.Section>
-                    {environment.isDevelopment ? <Action.CopyToClipboard title="Copy Link" content={JSON.stringify(instance)} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
+                    {environment.isDevelopment ? <Action.CopyToClipboard title="Copy Link" content={instance.url} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
                     <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} shortcut={{ modifiers: ["cmd", "shift"], key: "." }} />
                   </ActionPanel.Section>
                 </ActionPanel>
