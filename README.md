@@ -1,6 +1,6 @@
 # Teletype
 
-A mininal version of the deta space teletype
+Use [Deta Space](https://deta.space) Teletype directly from Raycast
 
 ### Development
 
