@@ -1,6 +1,6 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "teletype",
+  "name": "deta-community",
   "title": "Teletype",
   "description": "Use Deta Space Teletype directly from Raycast",
   "icon": "icon.png",
