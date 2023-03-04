@@ -10,8 +10,8 @@
     {
       "name": "spaceToken",
       "type": "password",
-      "title": "Space Token",
-      "description": "Your deta space token",
+      "title": "Access Token",
+      "description": "Your deta space access token",
       "required": true
     }
   ],
