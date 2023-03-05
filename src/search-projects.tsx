@@ -47,7 +47,7 @@ function Project(props: { project: Project }) {
         </ActionPanel.Section>
         <ActionPanel.Section>
           <Action.CopyToClipboard
-            title="Copy Project Link"
+            title="Copy Link"
             content={`https://deta.space/builder/${props.project.id}`}
             shortcut={{ modifiers: ["cmd"], key: "c" }}
           />
