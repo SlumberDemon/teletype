@@ -1,4 +1,5 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
+import Revision from "./revisions"
 import Build from "./builds";
 
 type Project = {
@@ -28,7 +29,7 @@ export default function OpenProject(props: { project: Project, }) {
             />
             <List.Section title="Development">
                 <List.Item
-                    title="Builds" // https://deta.space/api/v0/builds?app_id=
+                    title="Builds"
                     icon={Icon.Hammer}
                     detail={
                         <List.Item.Detail
@@ -52,14 +53,12 @@ export default function OpenProject(props: { project: Project, }) {
                     }
                 />
                 <List.Item
-                    title="Revisions" // https://deta.space/api/v0/apps/appidhere/revisions
+                    title="Revisions"
                     icon={Icon.List}
                     detail={
                         <List.Item.Detail
                             metadata={
-                                <List.Item.Detail.Metadata>
-
-                                </List.Item.Detail.Metadata>
+                                <Revision project={props.project} />
                             }
                         />
                     }

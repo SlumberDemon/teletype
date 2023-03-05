@@ -1,4 +1,4 @@
-import { Color, Icon, List } from "@raycast/api";
+import { Color, List } from "@raycast/api";
 import { useSpace } from "../hooks/use-space";
 
 type Project = {
@@ -40,7 +40,7 @@ export default function Build(props: { project: Project }) {
 
     return <List.Item.Detail.Metadata>
         {data?.builds.map((build) =>
-            <List.Item.Detail.Metadata.Label title={build.id} key={build.id} text={{ value: build.status, color: getStatusColor(build.status) }} />
+            <List.Item.Detail.Metadata.Label title={build.tag} key={build.id} text={{ value: build.status, color: getStatusColor(build.status) }} />
         )}
     </List.Item.Detail.Metadata>
 }
