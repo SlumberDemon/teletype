@@ -1,4 +1,3 @@
-import { CollectionList } from "./collections/browse-collection";
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import { useSpace } from "./hooks/use-space";
 
