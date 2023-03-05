@@ -40,7 +40,6 @@ function CollectionList(props: { collection: Collection }) {
     actions={
       <ActionPanel>
         <ActionPanel.Section>
-          <Action.Push icon={Icon.MagnifyingGlass} title="Browse Collection" target={<CollectionList collection={props.collection} />} />
           <Action.OpenInBrowser url={`https://deta.space/collections/${props.collection.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>
