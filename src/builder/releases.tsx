@@ -1,5 +1,6 @@
 import { List, Icon, Image, Color, ActionPanel, Action } from "@raycast/api"
 import { useSpace } from "../hooks/use-space";
+import { parseISO } from "date-fns"
 
 type Project = {
     id: string;
@@ -16,6 +17,7 @@ type Release = {
     icon_url: string;
     status: string;
     latest: boolean;
+    released_at: string;
     discovery: {
         canonical_url: string;
         stats: {
@@ -39,7 +41,9 @@ export default function Release(props: { project: Project }) {
                         tag: {
                             value: release.latest === true ? "Latest" : null, color: release.latest === true ? Color.Green : Color.Red
                         }
-                    }
+                    },
+                    { tag: { value: new Date(release.released_at) } }
+
                 ]}
                     actions={
                         <ActionPanel>
