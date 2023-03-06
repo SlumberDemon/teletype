@@ -38,9 +38,15 @@ export default function Build(props: { project: Project }) {
         }
     }
 
-    return <List.Item.Detail.Metadata>
+    return <List navigationTitle={props.project.name}>
         {data?.builds.map((build) =>
-            <List.Item.Detail.Metadata.Label title={build.tag} key={build.id} text={{ value: build.status, color: getStatusColor(build.status) }} />
+            <List.Item title={build.tag} key={build.id} subtitle={build.id} accessories={
+                [{
+                    tag: { value: build.status, color: getStatusColor(build.status) }
+                }
+                ]}
+            />
+
         )}
-    </List.Item.Detail.Metadata>
+    </List>
 }

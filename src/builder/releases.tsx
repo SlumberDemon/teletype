@@ -31,7 +31,7 @@ type ReleaseResponse = {
 export default function Release(props: { project: Project }) {
     const { data } = useSpace<ReleaseResponse>(`/releases?app_id=${props.project.id}`)
 
-    return <List navigationTitle={`${props.project.name} | Releases`}>
+    return <List navigationTitle={props.project.name}>
         {
             data?.releases.map((release) =>
                 <List.Item title={release.name} subtitle={release.version} key={release.id} icon={release.icon_url ? { source: release.icon_url, mask: Image.Mask.RoundedRectangle } : Icon.PlusTopRightSquare} accessories={[
@@ -39,7 +39,7 @@ export default function Release(props: { project: Project }) {
                         tag: {
                             value: release.latest === true ? "Latest" : null, color: release.latest === true ? Color.Green : Color.Red
                         }
-                    } // release.latest
+                    }
                 ]}
                     actions={
                         <ActionPanel>

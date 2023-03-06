@@ -23,9 +23,9 @@ type RevisionsResponse = {
 export default function Revision(props: { project: Project }) {
     const { data } = useSpace<RevisionsResponse>(`/apps/${props.project.id}/revisions`)
 
-    return <List.Item.Detail.Metadata>
+    return <List navigationTitle={props.project.name}>
         {data?.revisions.map((revision) =>
-            <List.Item.Detail.Metadata.Label title={revision.tag} key={revision.id} />
+            <List.Item title={revision.tag} subtitle={revision.id} key={revision.id} />
         )}
-    </List.Item.Detail.Metadata>
+    </List>
 }
