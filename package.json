@@ -50,7 +50,7 @@
   "dependencies": {
     "@raycast/api": "^1.48.4",
     "@raycast/utils": "^1.4.18",
-    "deta-space-client": "1.0.9"
+    "deta-space-client": "1.0.14"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
@@ -67,6 +67,7 @@
     "dev": "ray develop",
     "fix-lint": "ray lint --fix",
     "lint": "ray lint",
-    "publish": "ray publish"
+    "publish": "ray publish",
+    "space-client": "space-client"
   }
 }
