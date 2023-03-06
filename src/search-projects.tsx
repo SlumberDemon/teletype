@@ -1,6 +1,6 @@
 import { Action, ActionPanel, Icon, List, Color } from "@raycast/api";
 import { useSpace } from "./hooks/use-space";
-import Revision from "./builder/revisions";
+import RevisionList from "./builder/revisions";
 import Release from "./builder/releases";
 import Build from "./builder/builds";
 
@@ -61,7 +61,7 @@ function Project(props: { project: Project }) {
         <ActionPanel.Section>
           <Action.Push icon={Icon.Globe} title="View Releases" target={<Release project={props.project} />} />
           <Action.Push icon={Icon.Hammer} title="View Builds" target={<Build project={props.project} />} />
-          <Action.Push icon={Icon.List} title="View Revisions" target={<Revision project={props.project} />} />
+          <Action.Push icon={Icon.List} title="View Revisions" target={<RevisionList project={props.project} />} />
         </ActionPanel.Section>
       </ActionPanel>
     }
