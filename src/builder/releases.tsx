@@ -30,33 +30,39 @@ type ReleaseResponse = {
     releases: Release[]
 }
 
-export default function Release(props: { project: Project }) {
-    const { data } = useSpace<ReleaseResponse>(`/releases?app_id=${props.project.id}`)
+export default function ReleaseList(props: { project: Project }) {
+    const { data, isLoading } = useSpace<ReleaseResponse>(`/releases?app_id=${props.project.id}`)
 
-    return <List navigationTitle={props.project.name}>
+    return <List navigationTitle={props.project.name} isLoading={isLoading}>
         {
-            data?.releases.map((release) =>
-                <List.Item title={release.name} subtitle={release.version} key={release.id} icon={release.icon_url ? { source: release.icon_url, mask: Image.Mask.RoundedRectangle } : Icon.PlusTopRightSquare} accessories={[
-                    {
-                        tag: {
-                            value: release.latest === true ? "Latest" : null, color: release.latest === true ? Color.Green : Color.Red
-                        }
-                    },
-                    { tag: { value: new Date(release.released_at) } }
-
-                ]}
-                    actions={
-                        <ActionPanel>
-                            <ActionPanel.Section>
-                                <Action.OpenInBrowser title="Open Discovery Page" url={release.discovery.canonical_url} />
-                            </ActionPanel.Section>
-                            <ActionPanel.Section>
-                                <Action.CopyToClipboard title="Copy Discovery Link" content={release.discovery.canonical_url} shortcut={{ modifiers: ["cmd"], key: "." }} />
-                            </ActionPanel.Section>
-                        </ActionPanel>
-                    }
-                />
+            data?.releases.sort((a, b) => {
+                return parseISO(b.released_at).getTime() - parseISO(a.released_at).getTime()
+            }).map((release) =>
+                <Release key={release.id} release={release} />
             )
         }
     </List >
+}
+
+function Release({ release }: { release: Release }) {
+    const accessories = []
+    if (release.latest) {
+        accessories.push({ tag: { value: "Latest", color: Color.Green } })
+    }
+    accessories.push({ date: parseISO(release.released_at) })
+
+    const icon = release.icon_url ? { source: release.icon_url, mask: Image.Mask.RoundedRectangle } : Icon.PlusTopRightSquare
+
+    return <List.Item title={release.name} subtitle={release.version} icon={icon} accessories={accessories}
+        actions={
+            <ActionPanel>
+                <ActionPanel.Section>
+                    <Action.OpenInBrowser title="Open Discovery Page" url={release.discovery.canonical_url} />
+                </ActionPanel.Section>
+                <ActionPanel.Section>
+                    <Action.CopyToClipboard title="Copy Discovery Link" content={release.discovery.canonical_url} shortcut={{ modifiers: ["cmd"], key: "." }} />
+                </ActionPanel.Section>
+            </ActionPanel>
+        }
+    />
 }

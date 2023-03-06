@@ -22,13 +22,13 @@ type RevisionsResponse = {
 }
 
 export default function RevisionList(props: { project: Project }) {
-    const { data } = useSpace<RevisionsResponse>(`/apps/${props.project.id}/revisions`)
+    const { data, isLoading } = useSpace<RevisionsResponse>(`/apps/${props.project.id}/revisions`)
 
-    return <List navigationTitle={props.project.name}>
+    return <List isLoading={isLoading} navigationTitle={props.project.name}>
         {data?.revisions.sort((a, b) => {
             return parseISO(b.updated_at).getTime() - parseISO(a.updated_at).getTime()
         }).map((revision) =>
-            <List.Item title={revision.tag} subtitle={revision.id} accessories={[{ date: parseISO(revision.created_at) }]} />
+            <List.Item key={revision.id} title={revision.tag} subtitle={revision.id} accessories={[{ date: parseISO(revision.created_at) }]} />
         )}
     </List>
 }
