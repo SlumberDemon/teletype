@@ -1,5 +1,6 @@
 import { Action, ActionPanel, Icon, List } from "@raycast/api";
 import Revision from "./revisions"
+import Release from "./releases";
 import Build from "./builds";
 
 type Project = {
@@ -27,27 +28,14 @@ export default function OpenProject(props: { project: Project, }) {
                     />
                 }
             />
-            <List.Section title="Development">
+            <List.Section title="Overview">
                 <List.Item
-                    title="Builds"
-                    icon={Icon.Hammer}
+                    title="Releases"
+                    icon={Icon.Globe}
                     detail={
                         <List.Item.Detail
                             metadata={
-                                <Build project={props.project} />
-                            }
-                        />
-                    }
-                />
-                <List.Item
-                    title="Micros" // https://deta.space/api/v0/instances/smallidhere 
-                    icon={Icon.ComputerChip}
-                    detail={
-                        <List.Item.Detail
-                            metadata={
-                                <List.Item.Detail.Metadata>
-
-                                </List.Item.Detail.Metadata>
+                                <Release project={props.project} />
                             }
                         />
                     }
@@ -59,6 +47,32 @@ export default function OpenProject(props: { project: Project, }) {
                         <List.Item.Detail
                             metadata={
                                 <Revision project={props.project} />
+                            }
+                        />
+                    }
+                />
+                <List.Item
+                    title="Builds"
+                    icon={Icon.Hammer}
+                    detail={
+                        <List.Item.Detail
+                            metadata={
+                                <Build project={props.project} />
+                            }
+                        />
+                    }
+                />
+            </List.Section>
+            <List.Section title="Develop">
+                <List.Item
+                    title="Micros" // https://deta.space/api/v0/instances/smallidhere 
+                    icon={Icon.ComputerChip}
+                    detail={
+                        <List.Item.Detail
+                            metadata={
+                                <List.Item.Detail.Metadata>
+
+                                </List.Item.Detail.Metadata>
                             }
                         />
                     }
@@ -115,6 +129,6 @@ export default function OpenProject(props: { project: Project, }) {
                     }
                 />
             </List.Section>
-        </List>
+        </List >
     );
 }

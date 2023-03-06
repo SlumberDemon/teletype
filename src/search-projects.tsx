@@ -1,6 +1,6 @@
 import { Action, ActionPanel, Icon, List, Color } from "@raycast/api";
 import { useSpace } from "./hooks/use-space";
-import OpenProject from "./builder/project";
+import Release from "./builder/releases";
 
 type Project = {
   id: string;
@@ -42,7 +42,6 @@ function Project(props: { project: Project }) {
     actions={
       <ActionPanel>
         <ActionPanel.Section>
-          <Action.Push icon={Icon.AppWindowList} title="Open Project" target={<OpenProject project={props.project} />} />
           <Action.OpenInBrowser title="Open in Builder" url={`https://deta.space/builder/${props.project.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>
@@ -56,6 +55,9 @@ function Project(props: { project: Project }) {
             content={props.project.id}
             shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
           />
+        </ActionPanel.Section>
+        <ActionPanel.Section>
+          <Action.Push icon={Icon.AppWindowList} title="View Releases" target={<Release project={props.project} />} />
         </ActionPanel.Section>
       </ActionPanel>
     }
