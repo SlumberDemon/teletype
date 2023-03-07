@@ -51,7 +51,7 @@
     "@raycast/api": "^1.48.4",
     "@raycast/utils": "^1.4.18",
     "date-fns": "^2.29.3",
-    "deta-space-client": "1.0.9"
+    "deta-space-client": "1.0.14"
   },
   "devDependencies": {
     "@types/node": "18.8.3",
