@@ -50,6 +50,9 @@ function Release({ release }: { release: Release }) {
     if (release.latest) {
         accessories.push({ tag: { value: "Latest", color: Color.Green } })
     }
+    if (release.discovery.listed) {
+        accessories.push({ tag: { value: "Listed", color: "#EC40A2" } })
+    }
     accessories.push({ date: parseISO(release.released_at) })
 
     const icon = release.icon_url ? { source: release.icon_url, mask: Image.Mask.RoundedRectangle } : Icon.PlusTopRightSquare
