@@ -4,11 +4,13 @@ import SearchDiscovery from "./search-discovery";
 import SearchProjects from "./search-projects";
 import SearchDocs from "./search-docs";
 import { useSpace } from "./hooks/use-space";
+import { useMemo } from "react";
 
 type Instance = {
   id: string;
   release: {
     app_name: string;
+    channel: "experimental" | "development";
     icon_url?: string;
     short_description?: string;
     id: string;
@@ -16,85 +18,136 @@ type Instance = {
   url: string;
 };
 
-
 type InstancesResponse = {
   instances: Instance[];
 };
 
-export default function Command() {
-  const { data, isLoading } = useSpace<InstancesResponse>("/instances");
-  return (
-    <Grid isLoading={isLoading} columns={8} navigationTitle="Canvas">
-      {isLoading ? null : (
-        <>
-          <StaticCanvasItems />
-          <Docs />
-          <Builder />
-          <Collections />
-          <Discovery />
-          {data?.instances.map((instance) => (
-            <Grid.Item
-              key={instance.id}
-              title={instance.release.app_name}
-              content={{
-                value: instance.release.icon_url ? instance.release.icon_url : { color: "#ED3FA2" },
+type CanvasResponse = {
+  items: {
+    id: string;
+    index_number: number;
+    item_id: string;
+    item_type: "discovery" | "system_app";
+    data: null;
+  }[];
+};
 
-                tooltip: instance.release.short_description || "No description",
-              }}
-              actions={
-                <ActionPanel>
-                  <ActionPanel.Section>
-                    <Action.OpenInBrowser url={instance.url} />
-                    <Action.OpenInBrowser title="Open in Discovery" url={`https://deta.space/discovery/r/${instance.release.id}`} />
-                  </ActionPanel.Section>
-                  <ActionPanel.Section>
-                    {environment.isDevelopment ? <Action.CopyToClipboard title="Copy Link" content={instance.url} shortcut={{ modifiers: ["cmd"], key: "." }} /> : null}
-                    <Action.CopyToClipboard title="Copy Discovery Link" content={`https://deta.space/discovery/r/${instance.release.id}`} shortcut={{ modifiers: ["cmd", "shift"], key: "." }} />
-                  </ActionPanel.Section>
-                </ActionPanel>
-              }
-            />
-          ))}
-        </>
-      )}
+const systemApps: Record<string, JSX.Element> = {
+  discovery: <Discovery key="discovery" />,
+  docs: <Docs key="docs" />,
+  builder: <Builder key="builder" />,
+  collections: <Collections key="collections" />,
+  legacy_cloud: <LegacyCloud key="legacy_cloud" />,
+  manual: <Manual key="manual" />,
+};
+
+export default function Command() {
+  const { data: canvas, isLoading: isCanvasLoading } = useSpace<CanvasResponse>("/canvas?limit=999");
+  const { data: instances, isLoading: isInstancesLoading } = useSpace<InstancesResponse>("/instances");
+  const isLoading = isCanvasLoading || isInstancesLoading;
+
+  const instanceMap = useMemo(() => {
+    return instances?.instances.reduce((acc, instance) => {
+      acc[instance.id] = instance;
+      return acc;
+    }, {} as Record<string, Instance>);
+  }, [instances]);
+
+  const getInstance = (id: string) => {
+    const instance = instanceMap?.[id];
+    if (!instance) {
+      return null;
+    }
+
+    return <Instance key={instance.id} instance={instance} />;
+  };
+
+  return (
+    <Grid isLoading={isLoading} columns={7} navigationTitle="Canvas">
+      {isCanvasLoading
+        ? null
+        : canvas?.items.map((item) =>
+            item.item_type === "system_app" ? systemApps[item.item_id] : getInstance(item.item_id)
+          )}
     </Grid>
   );
 }
 
-function StaticCanvasItems() {
+function Instance({ instance }: { instance: Instance }) {
+  const content_value = () => {
+    if (instance.release.channel === "development") {
+      return Icon.Hammer;
+    }
+    if (instance.release.icon_url) {
+      return instance.release.icon_url;
+    }
+
+    return { color: "#ED3FA2" };
+  };
   return (
-    <>
-      <Grid.Item
-        content="https://deta.space/assets/deta.7c76948e.svg"
-        title="Open Canvas"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/" />
-            <Action.CopyToClipboard content="https://deta.space/l" />
-          </ActionPanel>
-        }
-      />
-      <Grid.Item
-        content="https://deta.space/assets/legacy_cloud.43f2c117.webp"
-        title="Legacy Cloud"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/legacy" />
-            <Action.CopyToClipboard content="https://deta.space/legacy" />
-          </ActionPanel>
-        }
-      />
-      <Grid.Item
-        content="https://deta.space/assets/manual.a2e80d80.webp"
-        title="Manual"
-        actions={
-          <ActionPanel>
-            <Action.OpenInBrowser url="https://deta.space/manual" />
-            <Action.CopyToClipboard content="https://deta.space/manual" />
-          </ActionPanel>
-        }
-      />
-    </>
+    <Grid.Item
+      key={instance.id}
+      title={instance.release.app_name}
+      content={{
+        value: content_value(),
+        tooltip: instance.release.short_description || "No description",
+      }}
+      actions={
+        <ActionPanel>
+          <ActionPanel.Section>
+            <Action.OpenInBrowser url={instance.url} />
+            <Action.OpenInBrowser
+              title="Open in Discovery"
+              url={`https://deta.space/discovery/r/${instance.release.id}`}
+            />
+          </ActionPanel.Section>
+          <ActionPanel.Section>
+            {environment.isDevelopment ? (
+              <Action.CopyToClipboard
+                title="Copy Link"
+                content={instance.url}
+                shortcut={{ modifiers: ["cmd"], key: "." }}
+              />
+            ) : null}
+            <Action.CopyToClipboard
+              title="Copy Discovery Link"
+              content={`https://deta.space/discovery/r/${instance.release.id}`}
+              shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
+            />
+          </ActionPanel.Section>
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+function Manual() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/manual.a2e80d80.webp"
+      title="Manual"
+      actions={
+        <ActionPanel>
+          <Action.OpenInBrowser url="https://deta.space/manual" />
+          <Action.CopyToClipboard content="https://deta.space/manual" />
+        </ActionPanel>
+      }
+    />
+  );
+}
+
+function LegacyCloud() {
+  return (
+    <Grid.Item
+      content="https://deta.space/assets/legacy_cloud.43f2c117.webp"
+      title="Legacy Cloud"
+      actions={
+        <ActionPanel>
+          <Action.OpenInBrowser url="https://deta.space/legacy" />
+          <Action.CopyToClipboard content="https://deta.space/legacy" />
+        </ActionPanel>
+      }
+    />
   );
 }
 
