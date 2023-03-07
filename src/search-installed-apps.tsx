@@ -1,4 +1,4 @@
-import { ActionPanel, Action, Grid, environment, Icon } from "@raycast/api";
+import { ActionPanel, Action, Grid, environment, Icon, getPreferenceValues } from "@raycast/api";
 import SearchCollections from "./search-collections";
 import SearchDiscovery from "./search-discovery";
 import SearchProjects from "./search-projects";
@@ -41,10 +41,21 @@ const systemApps: Record<string, JSX.Element> = {
   manual: <Manual key="manual" />,
 };
 
+const { iconSize } = getPreferenceValues();
 export default function Command() {
   const { data: canvas, isLoading: isCanvasLoading } = useSpace<CanvasResponse>("/canvas?limit=999");
   const { data: instances, isLoading: isInstancesLoading } = useSpace<InstancesResponse>("/instances");
   const isLoading = isCanvasLoading || isInstancesLoading;
+  const getNbColumns = () => {
+    switch (iconSize) {
+      case "small":
+        return 8;
+      case "medium":
+        return 7;
+      case "large":
+        return 6;
+    }
+  };
 
   const instanceMap = useMemo(() => {
     return instances?.instances.reduce((acc, instance) => {
@@ -63,7 +74,7 @@ export default function Command() {
   };
 
   return (
-    <Grid isLoading={isLoading} columns={7} navigationTitle="Canvas">
+    <Grid isLoading={isLoading} columns={getNbColumns()} navigationTitle="Canvas">
       {isCanvasLoading
         ? null
         : canvas?.items.map((item) =>
