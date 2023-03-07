@@ -24,6 +24,7 @@ type Release = {
             total_installs: string;
             release_installs: string
         }
+        listed: boolean;
     }
 }
 type ReleaseResponse = {
