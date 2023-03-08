@@ -1,5 +1,4 @@
 import { Color, List } from "@raycast/api";
-import { parseISO } from "date-fns";
 import { useSpace } from "../hooks/use-space";
 
 type Project = {
@@ -59,7 +58,7 @@ function Build({ build }: { build: Build }) {
           tag: { value: build.status, color: getStatusColor(build.status) },
         },
         {
-          date: parseISO(build.created_at),
+          date: new Date(build.created_at),
         },
       ]}
     />
