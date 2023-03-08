@@ -26,7 +26,31 @@
       "name": "search-installed-apps",
       "title": "Search Installed Apps",
       "description": "Search for installed apps",
-      "mode": "view"
+      "mode": "view",
+      "preferences": [
+        {
+          "name": "iconSize",
+          "type": "dropdown",
+          "title": "Icon Size",
+          "description": "The size of canvas icons",
+          "required": false,
+          "default": "medium",
+          "data": [
+            {
+              "title": "Small",
+              "value": "small"
+            },
+            {
+              "title": "Medium",
+              "value": "medium"
+            },
+            {
+              "title": "Large",
+              "value": "large"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "search-projects",
@@ -68,6 +92,7 @@
     "dev": "ray develop",
     "fix-lint": "ray lint --fix",
     "lint": "ray lint",
-    "publish": "ray publish"
+    "publish": "ray publish",
+    "space-client": "space-client"
   }
 }

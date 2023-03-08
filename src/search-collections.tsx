@@ -47,7 +47,7 @@ function CollectionList(props: { collection: Collection }) {
           <Action.CopyToClipboard title="Copy Link" content={`https://deta.space/collections/${props.collection.id}`} shortcut={{ modifiers: ["cmd"], key: "." }} />
         </ActionPanel.Section>
         <ActionPanel.Section>
-          <Action.Push icon={Icon.Key} title="Generate Data Key" target={<GenerateDataKeyForm collectionID={props.collection.id} />} />
+          <Action.Push icon={Icon.Key} title="Generate Data Key" shortcut={{ modifiers: ["cmd", "shift"], key: "k" }} target={<GenerateDataKeyForm collectionID={props.collection.id} />} />
         </ActionPanel.Section>
       </ActionPanel>
     }
@@ -82,7 +82,7 @@ function GenerateDataKeyForm(props: { collectionID: string }) {
 
   return <Form actions={
     <ActionPanel>
-      <Action.SubmitForm title="Generate Key" shortcut={{ modifiers: ["cmd", "shift"], key: "k" }} onSubmit={handleSubmit} />
+      <Action.SubmitForm title="Generate Key" onSubmit={handleSubmit} />
     </ActionPanel>
   }>
     <Form.TextField title="Name" placeholder="key name" {...itemProps.name} />
