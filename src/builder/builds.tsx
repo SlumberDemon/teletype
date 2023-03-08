@@ -28,7 +28,7 @@ export default function BuildList(props: { project: Project }) {
   return (
     <List isLoading={isLoading} navigationTitle={props.project.name}>
       {data?.builds
-        .sort((a, b) => parseISO(b.created_at).getTime() - parseISO(a.created_at).getTime())
+        .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
         .map((build) => (
           <Build key={build.id} build={build} />
         ))}

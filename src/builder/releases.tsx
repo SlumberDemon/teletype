@@ -37,7 +37,7 @@ export default function ReleaseList(props: { project: Project }) {
     <List navigationTitle={props.project.name} isLoading={isLoading}>
       {data?.releases
         .sort((a, b) => {
-          return parseISO(b.released_at).getTime() - parseISO(a.released_at).getTime();
+          return new Date(b.released_at).getTime() - new Date(a.released_at).getTime();
         })
         .map((release) => (
           <Release key={release.id} release={release} />
