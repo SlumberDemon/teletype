@@ -45,9 +45,9 @@ function Project(props: { project: Project }) {
             <Action.OpenInBrowser title="Open in Builder" url={`https://deta.space/builder/${props.project.id}`} />
           </ActionPanel.Section>
           <ActionPanel.Section>
-            <Action.Push icon={Icon.Hammer} title="View Builds" target={<BuildList project={props.project} />} />
-            <Action.Push icon={Icon.List} title="View Revisions" target={<RevisionList project={props.project} />} />
-            <Action.Push icon={Icon.Globe} title="View Releases" target={<Release project={props.project} />} />
+            <Action.Push icon={Icon.Hammer} title="View Builds" target={<BuildList project={props.project} />} shortcut={{ modifiers: ["cmd"], key: "b" }} />
+            <Action.Push icon={Icon.List} title="View Revisions" target={<RevisionList project={props.project} />} shortcut={{ modifiers: ["cmd"], key: "r" }} />
+            <Action.Push icon={Icon.Globe} title="View Releases" target={<Release project={props.project} />} shortcut={{ modifiers: ["cmd", "shift"], key: "r" }} />
           </ActionPanel.Section>
           <ActionPanel.Section>
             <Action.CopyToClipboard
