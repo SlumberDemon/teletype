@@ -1,31 +1,7 @@
 import { List, Icon, Image, Color, ActionPanel, Action } from "@raycast/api";
+import { Project, Release } from "../types/types";
 import { useSpace } from "../hooks/use-space";
 
-type Project = {
-  id: string;
-  name: string;
-  status: string;
-};
-
-type Release = {
-  id: string;
-  name: string;
-  short_description: string;
-  release_alias: string;
-  version: string;
-  icon_url: string;
-  status: string;
-  latest: boolean;
-  released_at: string;
-  discovery: {
-    canonical_url: string;
-    stats: {
-      total_installs: string;
-      release_installs: string;
-    };
-    listed: boolean;
-  };
-};
 type ReleaseResponse = {
   releases: Release[];
 };

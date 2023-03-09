@@ -1,13 +1,7 @@
 import { Action, ActionPanel, Form, Icon, List, showToast, Toast, Clipboard, showHUD } from "@raycast/api";
 import { spaceCient, useSpace } from "./hooks/use-space";
 import { useForm, FormValidation } from "@raycast/utils";
-
-type Collection = {
-  id: string;
-  name: string;
-  created_at: string;
-  migrated?: boolean;
-}
+import { Collection } from "./types/types";
 
 type CollectionResponse = {
   collections: Collection[]

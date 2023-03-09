@@ -2,21 +2,10 @@ import { ActionPanel, Action, Grid, environment, Icon, getPreferenceValues } fro
 import SearchCollections from "./search-collections";
 import SearchDiscovery from "./search-discovery";
 import SearchProjects from "./search-projects";
-import SearchDocs from "./search-docs";
 import { useSpace } from "./hooks/use-space";
+import { Instance } from "./types/types";
+import SearchDocs from "./search-docs";
 import { useMemo } from "react";
-
-type Instance = {
-  id: string;
-  release: {
-    app_name: string;
-    channel: "experimental" | "development";
-    icon_url?: string;
-    short_description?: string;
-    id: string;
-  };
-  url: string;
-};
 
 type InstancesResponse = {
   instances: Instance[];
@@ -78,8 +67,8 @@ export default function Command() {
       {isCanvasLoading
         ? null
         : canvas?.items.map((item) =>
-            item.item_type === "system_app" ? systemApps[item.item_id] : getInstance(item.item_id)
-          )}
+          item.item_type === "system_app" ? systemApps[item.item_id] : getInstance(item.item_id)
+        )}
     </Grid>
   );
 }
