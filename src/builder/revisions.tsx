@@ -1,11 +1,6 @@
-import { List } from "@raycast/api";
 import { useSpace } from "../hooks/use-space";
-
-type Project = {
-  id: string;
-  name: string;
-  status: string;
-};
+import { Project } from "../types/types";
+import { List } from "@raycast/api";
 
 type Revision = {
   id: string;

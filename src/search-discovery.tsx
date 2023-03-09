@@ -1,5 +1,6 @@
 import { ActionPanel, Action, List, Icon, Image } from "@raycast/api";
 import { useFetch } from "@raycast/utils";
+import { Release } from "./types/types";
 
 export default function SearchDiscovery() {
   const { data, isLoading } = useFetch("https://deta.space/api/v0/discovery/apps", {
@@ -68,24 +69,6 @@ function Release({ release }: { release: Release }) {
     />
   );
 }
-
-type Release = {
-  app_id: string;
-  app_name: string;
-  version: string;
-  icon_url?: string;
-  discovery: {
-    title?: string;
-    tagline: string;
-    theme_color: string;
-    git?: string;
-    homepage?: string;
-    listed_url: string;
-    stats: {
-      total_installs: number;
-    };
-  };
-};
 
 type DiscoveryResponse = {
   releases: Release[];

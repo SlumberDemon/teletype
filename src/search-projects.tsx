@@ -3,14 +3,7 @@ import { useSpace } from "./hooks/use-space";
 import RevisionList from "./builder/revisions";
 import Release from "./builder/releases";
 import BuildList from "./builder/builds";
-
-type Project = {
-  id: string;
-  name: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
-};
+import { Project } from "./types/types";
 
 type ProjectResponse = {
   apps: Project[];
