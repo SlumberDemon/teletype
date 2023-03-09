@@ -69,6 +69,12 @@
       "title": "Search Docs",
       "description": "Search for documentation",
       "mode": "view"
+    },
+    {
+      "name": "menu-bar",
+      "title": "Navigation menu",
+      "description": "Easy navigation menu for quick access",
+      "mode": "menu-bar"
     }
   ],
   "dependencies": {
