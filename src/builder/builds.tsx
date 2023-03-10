@@ -11,7 +11,7 @@ type Build = {
   updated_at: string;
 };
 
-type BuildStatus = "complete" | "pending" | "internal-error" | "failed";
+type BuildStatus = "complete" | "pending" | "internal-error" | "failed" | "timed-out" | "running";
 
 type BuildsResponse = {
   builds: Build[];
@@ -37,10 +37,12 @@ function Build({ build }: { build: Build }) {
       case "complete":
         return Color.Green;
       case "failed":
+      case "timed-out":
       case "internal-error":
         return Color.Red;
+      case "running":
       case "pending":
-        return Color.Yellow;
+        return Color.Yellow
     }
   };
 
