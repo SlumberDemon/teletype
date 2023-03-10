@@ -23,15 +23,17 @@ export default function SearchCollections() {
 }
 
 function CollectionList(props: { collection: Collection }) {
+  const accessories = [];
+  if (props.collection.migrated) {
+    accessories.push({ tag: { value: "Migrated", color: "#3792C8" } },)
+  }
+  accessories.push({ tag: new Date(props.collection.created_at) })
   return <List.Item
     key={props.collection.id}
     icon={Icon.HardDrive}
     title={props.collection.name}
     subtitle={props.collection.id}
-    accessories={[
-      { tag: { value: "migrated", color: "#ED3FA2" } },  // use props.collection.migrated // if its true show "migrated" // if its false show nothing
-      { tag: new Date(props.collection.created_at) } // maybe change date format
-    ]}
+    accessories={accessories}
     actions={
       <ActionPanel>
         <ActionPanel.Section>
