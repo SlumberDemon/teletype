@@ -23,9 +23,9 @@
       "mode": "view"
     },
     {
-      "name": "search-installed-apps",
-      "title": "Search Installed Apps",
-      "description": "Search for installed apps",
+      "name": "search-canvas",
+      "title": "Search Canvas",
+      "description": "Open your Space Canvas",
       "mode": "view",
       "preferences": [
         {
@@ -54,8 +54,8 @@
     },
     {
       "name": "search-projects",
-      "title": "Search your Projects",
-      "description": "Search for builder projects",
+      "title": "Search Projects",
+      "description": "Search your builder projects",
       "mode": "view"
     },
     {
