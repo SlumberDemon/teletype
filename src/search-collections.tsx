@@ -1,4 +1,5 @@
 import { Action, ActionPanel, Form, Icon, List, showToast, Toast, Clipboard, showHUD } from "@raycast/api";
+import { BrowseCollection } from "./collections/browse-collection";
 import { spaceCient, useSpace } from "./hooks/use-space";
 import { useForm, FormValidation } from "@raycast/utils";
 import { Collection } from "./types/types";
@@ -30,13 +31,14 @@ function CollectionList(props: { collection: Collection }) {
   accessories.push({ tag: new Date(props.collection.created_at) })
   return <List.Item
     key={props.collection.id}
-    icon={Icon.HardDrive}
+    icon={Icon.Box}
     title={props.collection.name}
     subtitle={props.collection.id}
     accessories={accessories}
     actions={
       <ActionPanel>
         <ActionPanel.Section>
+          <Action.Push icon={Icon.MagnifyingGlass} title="Browse Collection" target={<BrowseCollection collection={props.collection} />} />
           <Action.OpenInBrowser url={`https://deta.space/collections/${props.collection.id}`} />
         </ActionPanel.Section>
         <ActionPanel.Section>
