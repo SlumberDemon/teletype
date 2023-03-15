@@ -4,7 +4,6 @@ import SearchDiscovery from "./search-discovery";
 import SearchProjects from "./search-projects";
 import { useSpace } from "./hooks/use-space";
 import { Instance } from "./types/types";
-import SearchDocs from "./search-docs";
 import { useMemo } from "react";
 
 type InstancesResponse = {
@@ -67,8 +66,8 @@ export default function Command() {
       {isCanvasLoading
         ? null
         : canvas?.items.map((item) =>
-          item.item_type === "system_app" ? systemApps[item.item_id] : getInstance(item.item_id)
-        )}
+            item.item_type === "system_app" ? systemApps[item.item_id] : getInstance(item.item_id)
+          )}
     </Grid>
   );
 }
@@ -188,7 +187,6 @@ function Docs() {
       title="Docs"
       actions={
         <ActionPanel>
-          <Action.Push icon={Icon.AppWindowList} title="Search Docs" target={<SearchDocs />} />
           <Action.OpenInBrowser url="https://deta.space/docs" />
         </ActionPanel>
       }
