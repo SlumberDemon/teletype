@@ -1,6 +1,6 @@
 import { open, MenuBarExtra } from "@raycast/api";
 
-export default function Command() {
+export default function menu() {
     return (
         <MenuBarExtra icon="https://deta.space/assets/deta.7c76948e.svg" tooltip="Your Pull Requests">
             <MenuBarExtra.Item
