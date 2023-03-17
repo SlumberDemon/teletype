@@ -1,4 +1,6 @@
 import { ActionPanel, Action, List, Icon, Image } from "@raycast/api";
+// import { spaceCient } from "./hooks/use-space";
+import AppPage from "./discovery/app";
 import { useFetch } from "@raycast/utils";
 import { Release } from "./types/types";
 
@@ -30,9 +32,13 @@ function Release({ release }: { release: Release }) {
       actions={
         <ActionPanel>
           <ActionPanel.Section>
-            <Action.OpenInBrowser title="Open in Discovery" url={release.discovery.listed_url} />
+            {/* <Action.Push title="Install App" target={ } /> {/* Show open app or install another instance not sure how to handle that, maybe find something later*/}
+            <Action.Push title="View details" icon={Icon.Sidebar} target={AppPage({ release })} />
+          </ActionPanel.Section>
+          <ActionPanel.Section>
+            <Action.OpenInBrowser title="Open in Discovery" url={release.discovery.listed_url} shortcut={{ modifiers: ["cmd"], key: "d" }} />
             {release.discovery.homepage ? (
-              <Action.OpenInBrowser icon={Icon.House} title="Open Homepage" url={release.discovery.homepage} />
+              <Action.OpenInBrowser icon={Icon.House} title="Open Homepage" url={release.discovery.homepage} shortcut={{ modifiers: ["cmd"], key: "h" }} />
             ) : null}
             {release.discovery.git ? (
               <Action.OpenInBrowser
@@ -64,7 +70,7 @@ function Release({ release }: { release: Release }) {
               />
             ) : null}
           </ActionPanel.Section>
-        </ActionPanel>
+        </ ActionPanel>
       }
     />
   );
@@ -83,3 +89,11 @@ async function parseFetchResponse(response: Response): Promise<Release[]> {
 
   return payload.releases.sort((a, b) => b.discovery.stats.total_installs - a.discovery.stats.total_installs);
 }
+
+//type InstallAppResponse = {
+//  status: string;
+//}
+
+// function InstallApp(props: { release: Release }) {
+//  await spaceCient.post<InstallAppResponse>(`https://deta.space/api/v0/installations?${props.release.app_id}`)
+//}

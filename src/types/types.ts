@@ -36,6 +36,7 @@ export type Release = {
     app_id: string;
     version: string;
     icon_url?: string;
+    author: string;
     status: string;
     latest: boolean;
     released_at: string;
