@@ -75,14 +75,21 @@ function Project(props: { project: Project; instance?: Instance }) {
           </ActionPanel.Section>
           <ActionPanel.Section>
             <Action.CopyToClipboard
-              title="Copy Link"
+              title="Copy Builder Link"
               content={`https://deta.space/builder/${props.project.id}`}
-              shortcut={{ modifiers: ["cmd"], key: "c" }}
+              shortcut={{ modifiers: ["cmd"], key: "." }}
             />
+            {props.instance ? (
+              <Action.CopyToClipboard
+                title="Copy Instance Link"
+                content={props.instance.url}
+                shortcut={{ modifiers: ["cmd", "shift"], key: "." }}
+              />
+            ) : null}
             <Action.CopyToClipboard
               title="Copy Project ID"
               content={props.project.id}
-              shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+              shortcut={{ modifiers: ["cmd", "opt"], key: "." }}
             />
           </ActionPanel.Section>
         </ActionPanel>
