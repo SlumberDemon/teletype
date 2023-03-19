@@ -101,13 +101,12 @@ function Instance({ instance }: { instance: Instance }) {
             />
           </ActionPanel.Section>
           <ActionPanel.Section>
-            {environment.isDevelopment ? (
-              <Action.CopyToClipboard
-                title="Copy Link"
-                content={instance.url}
-                shortcut={{ modifiers: ["cmd"], key: "." }}
-              />
-            ) : null}
+            <Action.CopyToClipboard
+              title="Copy Link"
+              content={instance.url}
+              shortcut={{ modifiers: ["cmd"], key: "." }}
+            />
+            <Action.CreateQuicklink quicklink={{ link: instance.url, name: instance.release.app_name }} />
             <Action.CopyToClipboard
               title="Copy Discovery Link"
               content={`https://deta.space/discovery/r/${instance.release.id}`}
