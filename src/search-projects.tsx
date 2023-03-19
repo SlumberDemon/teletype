@@ -27,8 +27,6 @@ export default function SearchProjects() {
     }, {} as Record<string, Instance>);
   }, [instances]);
 
-  console.log(instanceMap);
-
   return (
     <List isLoading={projectsLoading && instancesLoading} navigationTitle="Builder">
       {projects?.apps.map((project) => (
