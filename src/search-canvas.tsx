@@ -106,7 +106,10 @@ function Instance({ instance }: { instance: Instance }) {
               content={instance.url}
               shortcut={{ modifiers: ["cmd"], key: "." }}
             />
-            <Action.CreateQuicklink quicklink={{ link: instance.url, name: instance.release.app_name }} />
+            <Action.CreateQuicklink
+              shortcut={{ modifiers: ["cmd"], key: "s" }}
+              quicklink={{ link: instance.url, name: instance.release.app_name }}
+            />
             <Action.CopyToClipboard
               title="Copy Discovery Link"
               content={`https://deta.space/discovery/r/${instance.release.id}`}
