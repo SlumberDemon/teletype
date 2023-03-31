@@ -25,12 +25,7 @@ export default function SearchDocs() {
   });
 
   return (
-    <List
-      isLoading={isLoading}
-      onSearchTextChange={setSearchText}
-      filtering={false}
-      throttle
-    >
+    <List isLoading={isLoading} onSearchTextChange={setSearchText} filtering={false} throttle>
       {data?.map((section) => (
         <List.Section key={section.title} title={section.title}>
           {section.results.map((searchResult) => (
@@ -82,23 +77,24 @@ type SearchHit = {
 
   anchor: string;
   url: string;
-}
+};
 
 type SearchResponse = {
-  hits: SearchHit[]
+  hits: SearchHit[];
   query: string;
-}
+};
 
 async function parseFetchResponse(response: Response) {
   if (!response.ok) {
     throw new Error(`Failed to fetch search results: ${response.statusText}`);
   }
-  const payload = await response.json() as SearchResponse;
+  const payload = (await response.json()) as SearchResponse;
 
   const sections: Record<string, SearchSection> = {};
 
+  const seen = new Set<string>();
   for (const hit of payload.hits) {
-    const parts = []
+    const parts = [];
     for (let i = 0; i < 7; i++) {
       if (!hit[`hierarchy_lvl${i}` as keyof SearchHit]) {
         break;
@@ -115,10 +111,19 @@ async function parseFetchResponse(response: Response) {
       };
     }
 
-    const url = new URL(hit.url)
-    url.protocol = "https:"
-    url.host = "deta.space"
-    url.port = ""
+    const url = new URL(hit.url);
+    url.protocol = "https:";
+    url.host = "deta.space";
+    url.port = "";
+
+    // Normalize trailing slashes
+    if (url.pathname.endsWith("/")) {
+      url.pathname = url.pathname.slice(0, -1);
+    }
+
+    if (seen.has(url.toString())) {
+      continue;
+    }
 
     sections[sectionTitle].results.push({
       id: hit.objectID,
@@ -127,6 +132,8 @@ async function parseFetchResponse(response: Response) {
       parts: parts,
       url: url.toString(),
     });
+
+    seen.add(url.toString());
   }
 
   return Object.values(sections);
